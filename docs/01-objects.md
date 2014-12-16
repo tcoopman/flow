@@ -61,6 +61,23 @@ This type is incompatible with
   /tmp/flow/f.js:2:7,9: Foo
 ```
 
+## Reusable Object Types
+
+Object types can be made reusable through the use of
+[type aliases](type-aliases.html):
+
+{% highlight javascript linenos=table %}
+/* @flow */
+type MyType = {message: string; isAwesome: boolean};
+function sayHello(data: MyType) {
+  console.log(data.message);
+}
+
+var mySampleData: MyType = {message: 'Hello World', isAwesome: true};
+sayHello(mySampleData);
+sayHello({message: 'Hi', isAwesome: false});
+{% endhighlight %}
+
 ## Constructor Functions and Prototype Objects
 
 Another way of creating objects in JavaScript is by using `new` on
@@ -177,7 +194,7 @@ and getting its properties via bracket notation (i.e. dynamic accessors),
 instead of dot notation. Flow infers a precise value type for the map: in
 other words, if you only write `number` values to a map, you will read `number`values back (rather than, say, `any`).
 
-Such a map can be given a type of the form `{ ..., [key:string]: number }` where `string` is the key type and `number` is the
+Such a map can be given a type of the form `{ [key:string]: number }` where `string` is the key type and `number` is the
 value type of the map.
 
 ### Maps as Records
